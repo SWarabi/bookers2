@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!
+  # 個別指定
+  # before_action :authenticate_user!, only: [:edit, :update, :show, :index]
+  
   def edit
     @user = User.find(params[:id])
+    if @user == current_user
+          render :edit
+        else
+          redirect_to user_path
+    end
   end
 
   def show
@@ -12,8 +21,11 @@ class UsersController < ApplicationController
   
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
+    if @user.update(user_params)
     redirect_to user_path(@user.id), notice: 'You have updated user successfully.'
+    else
+    render :edit
+    end
   end
   
   def index

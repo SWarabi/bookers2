@@ -1,23 +1,18 @@
-<%= notice %>
-<h2>User info</h2>
-<%= image_tag @book.user.get_profile_image(100,100) %>
-<p>name <%= @book.user.name %></p>
-<p>introduction <%= @book.user.introduction %></p>
+<%= render 'users/userinfo', user: @book.user %>
 
-<p><%= link_to "サンプル", edit_user_path(@user.id) %></p>
-
-<h2>New Book</h2>
-<%= form_with model: Book.new, url: '/books', method: :post do |f| %>
+<h2>Book detail</h2>
 <p>
-<%= f.label :Title %>
-<%= f.text_field :title %>
-</p>
-<%= f.label :Opinion %>
-<%= f.text_field :body %>
-<%= f.submit 'Create Book' %>
+<%= link_to user_path(@book.user.id) do %>
+<%= image_tag @book.user.get_profile_image(100,100) %>
 <% end %>
+</p>
+<p>
+<%= link_to @book.user.name, user_path(@book.user.id) %>
+</p>
 
-<p><%= image_tag @book.user.get_profile_image(100,100) %></p>
+
+
+<!--<p><%#= image_tag @book.user.get_profile_image(100,100) %></p>-->
   <p>Title</p>
   <span><%= link_to @book.title, book_path(@book.id) %></span>
   <p>Opinion</p>
@@ -26,3 +21,22 @@
     <%= link_to "Edit", edit_book_path(@book.id) %>
     <%= link_to "Destroy", book_path(@book), method: :delete , "data-confirm" => "本当に消しますか？"%>
   <% end %>
+
+
+<!--<h2>User info</h2>-->
+<%#= image_tag @book.user.get_profile_image(100,100) %>
+<!--<p>name <%#= @book.user.name %></p>-->
+<!--<p>introduction <%#= @book.user.introduction %></p>-->
+
+<!--<p><%#= link_to "サンプル", edit_user_path(@user.id) %></p>-->
+
+<!--<h2>New book</h2>-->
+<%#= form_with model: Book.new, url: '/books', method: :post do |f| %>
+<!--<p>-->
+<%#= f.label :Title %>
+<%#= f.text_field :title %>
+<!--</p>-->
+<%#= f.label :Opinion %>
+<%#= f.text_field :body %>
+<%#= f.submit 'Create Book' %>
+<%# end %>
