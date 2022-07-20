@@ -1,7 +1,12 @@
 <%= render 'userinfo', user: @user %>
 
 <% @books.each do |book| %>
-<p><%= image_tag book.user.get_profile_image(100,100) %></p>
+
+<p>
+  <%= link_to user_path do %>
+  <%= image_tag book.user.get_profile_image(100,100) %>
+  <% end %>
+</p>
   <p>Title</p>
   <span><%= link_to book.title, book_path(book.id) %></span>
   <p>Opinion</p>
