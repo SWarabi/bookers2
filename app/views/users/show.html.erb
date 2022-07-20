@@ -1,0 +1,29 @@
+<%= notice %>
+<h2>User info</h2>
+<%= image_tag @user.get_profile_image(100,100) %>
+<p>name <%= @user.name %></p>
+<p>introduction <%= @user.introduction %></p>
+
+<p><%= link_to "サンプル", edit_user_path(@user.id) %></p>
+
+
+<h2>New Book</h2>
+<%= form_with model: @book, url: '/books', method: :post do |f| %>
+<p>
+<%= f.label :Title %>
+<%= f.text_field :title %>
+</p>
+<%= f.label :Opinion %>
+<%= f.text_field :body %>
+<%= f.submit 'Create Book' %>
+<% end %>
+
+<% @books.each do |book| %>
+<p><%= image_tag book.user.get_profile_image(100,100) %></p>
+  <p>Title</p>
+  <span><%= link_to book.title, book_path(book.id) %></span>
+  <p>Opinion</p>
+  <span><%= book.body %></span>
+  
+<% end %>
+<!--部分テンプレートファイルの呼び出しはrender [部分テンプレートファイルの指定], [ローカル変数]:[渡す値]-->

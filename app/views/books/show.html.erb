@@ -1,0 +1,28 @@
+<%= notice %>
+<h2>User info</h2>
+<%= image_tag @book.user.get_profile_image(100,100) %>
+<p>name <%= @book.user.name %></p>
+<p>introduction <%= @book.user.introduction %></p>
+
+<p><%= link_to "サンプル", edit_user_path(@user.id) %></p>
+
+<h2>New Book</h2>
+<%= form_with model: Book.new, url: '/books', method: :post do |f| %>
+<p>
+<%= f.label :Title %>
+<%= f.text_field :title %>
+</p>
+<%= f.label :Opinion %>
+<%= f.text_field :body %>
+<%= f.submit 'Create Book' %>
+<% end %>
+
+<p><%= image_tag @book.user.get_profile_image(100,100) %></p>
+  <p>Title</p>
+  <span><%= link_to @book.title, book_path(@book.id) %></span>
+  <p>Opinion</p>
+  <span><%= @book.body %></span>
+    <% if @book.user == current_user %>
+    <%= link_to "Edit", edit_book_path(@book.id) %>
+    <%= link_to "Destroy", book_path(@book), method: :delete , "data-confirm" => "本当に消しますか？"%>
+  <% end %>

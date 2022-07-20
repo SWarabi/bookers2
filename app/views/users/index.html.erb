@@ -1,0 +1,25 @@
+<h2>User info</h2>
+<%= image_tag @user.get_profile_image(100,100) %>
+<p>name <%= @user.name %></p>
+<p>introduction <%= @user.introduction %></p>
+
+<p><%= link_to "サンプル", edit_user_path(@user.id) %></p>
+
+<h2>New Book</h2>
+<%= form_with model: Book.new, url: '/books', method: :post do |f| %>
+<p>
+<%= f.label :Title %>
+<%= f.text_field :title %>
+</p>
+<%= f.label :Opinion %>
+<%= f.text_area :body %>
+<%= f.submit 'Create Book' %>
+<% end %>
+
+<% @users.each do |user| %>
+<p><%= image_tag user.get_profile_image(100,100) %></p>
+  <p>Name</p>
+  <span><%= user.name %></span>
+  <p></p>
+  <span><%= link_to "show", user_path(user.id) %></span>
+<% end %>

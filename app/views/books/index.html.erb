@@ -1,0 +1,43 @@
+<% if @book.errors.any? %>
+  <%= @book.errors.count %> error prohibited this book from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<h2>User info</h2>
+<%= image_tag @user.get_profile_image(100,100) %>
+<p>name <%= @user.name %></p>
+<p>introduction <%= @user.introduction %></p>
+
+<p><%= link_to "サンプル", edit_user_path(@user.id) %></p>
+
+
+<%= link_to "User", users_path %>
+<h2>New Book</h2>
+<%= form_with model: @book, url: '/books', method: :post do |f| %>
+<p>
+<%= f.label :Title %>
+<%= f.text_field :title %>
+</p>
+<%= f.label :Opinion %>
+<%= f.text_area :body %>
+<%= f.submit 'Create Book' %>
+<% end %>
+
+<h1>Books</h1>
+ 
+<% @books.each do |book| %>
+<p>
+  <%= link_to user_path(book.user.id) do %>
+<%= image_tag book.user.get_profile_image(100,100) %>
+<% end %>
+</p>
+  <p>Title</p>
+  <span><%= link_to book.title, book_path(book.id) %></span>
+  <p>Opinion</p>
+  <span><%= book.body %></span>
+  
+<% end %>

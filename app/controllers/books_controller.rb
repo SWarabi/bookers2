@@ -1,17 +1,54 @@
 class BooksController < ApplicationController
+  
+  # before_action :set_current_user
+  # @current_user=User.find_by(id: session[:user_id])
+  
+  # def autheniticate_user
+  #   if @current_user==nil
+  #   flash[:notice]="ログインが必要です"
+  #   redirect_to new_user_session_path
+  #   end
+  # end
+  
   def new
-    @book = Book.new  
+    @book = Book.new
   end
+  
   def create
-    # １.&2. データを受け取り新規登録するためのインスタンス作成
-    book = Book.new(book_params)
-    # 3. データをデータベースに保存するためのsaveメソッド実行
-    book.save
-    # 4. トップ画面へリダイレクト
-    redirect_to '/top'
+    @book = Book.new(book_params)
+    @book.user_id = current_user.id
+    @book.save
+    redirect_to book_path(@book.id), notice: 'You have created book successfully.'
   end
   
+  def index
+    @book = Book.new
+    @books = Book.all
+    @user = current_user
+    @users = User.all 
+  end
   
+  def edit
+    @book = Book.find(params[:id])
+  end
+  
+  def show
+    @book = Book.find(params[:id])
+    @user = current_user  
+    # @post_images = @user.post_images.page(params[:page])
+  end
+  
+  def destroy
+    @book = Book.find(params[:id])
+    @book.destroy
+    redirect_to '/books'
+  end
+  
+  def update
+    @book = Book.find(params[:id])
+    @book.update(book_params)
+    redirect_to book_path(@book.id), notice: 'You have updated book successfully.'
+  end
   private
   # ストロングパラメータ
   def book_params
