@@ -22,11 +22,11 @@
         <form>
         <%= form_with model: Book.new, url: '/books', method: :post do |f| %>
         <div class="form-group">
-          <label for="book_title"><%= f.label :Title %></label>
+          <label for="book_title"><%= f.label :Title %></label><br>
           <%= f.text_field :title %>
         </div>
         <div class="form-group">
-          <label for="book_opinion"><%= f.label :Opinion %></label>
+          <label for="book_opinion"><%= f.label :Opinion %></label><br>
           <%= f.text_area :body %>
         </div>
         <div class="form-group">
